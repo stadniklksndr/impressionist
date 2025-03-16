@@ -15,21 +15,29 @@ Layout/SpaceAroundMethodCallOperator:
   Enabled: true
 
 Lint/RaiseException:
-  Enabled: True
+  Enabled: true
 Lint/StructNewOverride:
-  Enabled: True
+  Enabled: true
 
 Style/ExponentialNotation:
-  Enabled: True
+  Enabled: true
 Style/HashEachMethods:
-  Enabled: True
+  Enabled: true
 Style/HashTransformKeys:
-  Enabled: True
+  Enabled: true
 Style/HashTransformValues:
-  Enabled: True
+  Enabled: true
+Style/SymbolProc:
+  Enabled: true
+  Exclude:
+    - "spec/spec_helper.rb"
+Style/BlockComments:
+  Enabled: true
+  Exclude:
+    - "spec/spec_helper.rb"
 
 Gemspec/OrderedDependencies:
-  Enabled: False
+  Enabled: false
 
 Bundler/OrderedGems:
-  Enabled: False
+  Enabled: false
