@@ -10,6 +10,12 @@
 # a separate helper file that requires the additional dependencies and performs
 # the additional setup, and require it from the spec files that actually need it.
 
+# Turns deprecation warnings into errors, in order
+# to surface the full backtrace of the call site.
+RSpec.configure do |rspec|
+  rspec.raise_errors_for_deprecations!
+end
+
 # Loads all the dependencies specified in your Gemfile, making
 # `bundle exec rspec` unnecessary so you can run RSpec without bundle exec.
 require "bundler/setup"
@@ -31,15 +37,15 @@ require "friendly_id"
 
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
-  # Configure rspec-rails settings for testing
-
+  # *** Configure rspec-rails settings for testing ***
+  #
   # Specifies the directory where fixture files (predefined test data) are stored.
-  config.fixture_path = "spec/fixtures"
+  config.fixture_paths = "spec/fixtures"
 
   # Ensures that each test runs inside a database
   # transaction, which  is rolled back after the test completes.
   config.use_transactional_fixtures = true
-  # ==========================================
+  # *** ========================================== ***
 
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
