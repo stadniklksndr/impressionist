@@ -1,8 +1,8 @@
-require 'spec_helper'
+require "spec_helper"
 
-require './app/models/impressionist/bots'
+require "./app/models/impressionist/bots"
 
-describe Impressionist::Bots do
+RSpec.describe Impressionist::Bots do
   describe "bot detection" do
     it "matches wild card" do
       expect(described_class).to be_bot("google.com bot")
