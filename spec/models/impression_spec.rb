@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Impression do
+RSpec.describe Impression, type: :model do
   fixtures :articles, :impressions, :posts, :profiles
 
   let(:article) { Article.find(1) }
