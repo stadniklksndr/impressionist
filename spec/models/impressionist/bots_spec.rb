@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 require "./app/models/impressionist/bots"
@@ -12,10 +14,18 @@ RSpec.describe Impressionist::Bots do
       expect(described_class).to be_bot("A-Online Search")
     end
 
-    it "skips blank user agents" do
-      expect(described_class).not_to be_bot
-      expect(described_class).not_to be_bot("")
-      expect(described_class).not_to be_bot(nil)
+    context "when inputs do not match a bot" do
+      it "skips when no user agent is provided" do
+        expect(described_class).not_to be_bot
+      end
+
+      it "skips when the user agent is an empty string" do
+        expect(described_class).not_to be_bot("")
+      end
+
+      it "skips when the user agent is nil" do
+        expect(described_class).not_to be_bot(nil)
+      end
     end
 
     it "skips safe matches" do

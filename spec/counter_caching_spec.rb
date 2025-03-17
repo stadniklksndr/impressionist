@@ -1,12 +1,14 @@
-require 'spec_helper'
+# frozen_string_literal: true
 
-describe Impression do
+require "spec_helper"
+
+RSpec.describe "Impressionable" do
   fixtures :widgets
 
   let(:widget) { Widget.find(1) }
 
   before do
-    described_class.destroy_all
+    Impression.destroy_all
   end
 
   describe ".impressionist_counter_caching?" do
@@ -20,31 +22,60 @@ describe Impression do
   end
 
   describe ".counter_caching?" do
-    let(:deprecation) { double("ActiveSupport::Deprecation") }
+    let(:deprecation) { instance_double(ActiveSupport::Deprecation, warn: true) }
 
-    it "knows when counter caching is enabled" do
-      expect(ActiveSupport::Deprecation).to receive(:new) { deprecation }
-      expect(deprecation).to receive(:warn).with("#counter_caching? is deprecated; please use #impressionist_counter_caching? instead")
+    context "when enabled" do
+      it "is deprecated from 2.0.0" do
+        allow(ActiveSupport::Deprecation).to receive(:new).and_call_original
+        Widget.counter_caching?
 
-      expect(Widget).to be_counter_caching
+        expect(ActiveSupport::Deprecation).to have_received(:new).with("2.0.0", "impressionist")
+      end
+
+      it "returns deprecation warn" do
+        allow(ActiveSupport::Deprecation).to receive(:new) { deprecation }
+        Widget.counter_caching?
+
+        expect(deprecation).to have_received(:warn).with(
+          "#counter_caching? is deprecated; please use #impressionist_counter_caching? instead"
+        )
+      end
+
+      it { expect(Widget).to be_counter_caching }
     end
 
-    it "knows when counter caching is disabled" do
-      expect(Article).not_to be_counter_caching
+    context "when disabled" do
+      it "is deprecated from 2.0.0" do
+        allow(ActiveSupport::Deprecation).to receive(:new).and_call_original
+        Article.counter_caching?
+
+        expect(ActiveSupport::Deprecation).to have_received(:new).with("2.0.0", "impressionist")
+      end
+
+      it "returns deprecation warn" do
+        allow(ActiveSupport::Deprecation).to receive(:new) { deprecation }
+        Widget.counter_caching?
+
+        expect(deprecation).to have_received(:warn).with(
+          "#counter_caching? is deprecated; please use #impressionist_counter_caching? instead"
+        )
+      end
+
+      it { expect(Article).not_to be_counter_caching }
     end
   end
 
   describe "#update_impressionist_counter_cache" do
     it "updates the counter cache column to reflect the correct number of impressions" do
       expect do
-        widget.impressions.create(:request_hash => 'abcd1234')
+        widget.impressions.create(request_hash: "abcd1234")
         widget.reload
       end.to change(widget, :impressions_count).from(0).to(1)
     end
 
     it "does not update the timestamp on the impressable" do
       expect do
-        widget.impressions.create(:request_hash => 'abcd1234')
+        widget.impressions.create(request_hash: "abcd1234")
         widget.reload
       end.not_to change(widget, :updated_at)
     end
