@@ -9,7 +9,7 @@ describe Impression do
     described_class.destroy_all
   end
 
-  describe "self#impressionist_counter_caching?" do
+  describe ".impressionist_counter_caching?" do
     it "knows when counter caching is enabled" do
       expect(Widget).to be_impressionist_counter_caching
     end
@@ -19,14 +19,17 @@ describe Impression do
     end
   end
 
-  describe "self#counter_caching?" do
+  describe ".counter_caching?" do
+    let(:deprecation) { double("ActiveSupport::Deprecation") }
+
     it "knows when counter caching is enabled" do
-      allow(ActiveSupport::Deprecation).to receive(:warn)
+      expect(ActiveSupport::Deprecation).to receive(:new) { deprecation }
+      expect(deprecation).to receive(:warn).with("#counter_caching? is deprecated; please use #impressionist_counter_caching? instead")
+
       expect(Widget).to be_counter_caching
     end
 
     it "knows when counter caching is disabled" do
-      allow(ActiveSupport::Deprecation).to receive(:warn)
       expect(Article).not_to be_counter_caching
     end
   end
