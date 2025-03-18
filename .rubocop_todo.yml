@@ -577,11 +577,3 @@ Style/TernaryParentheses:
 # SupportedStyles: percent, brackets
 Style/WordArray:
   EnforcedStyle: brackets
-
-# Offense count: 401
-# Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
-# URISchemes: http, https
-Layout/LineLength:
-  Max: 197
-
