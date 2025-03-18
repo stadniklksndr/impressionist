@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Impressionist
   module Generators
     class ImpressionistGenerator < Rails::Generators::Base

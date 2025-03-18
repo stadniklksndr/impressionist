@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'systemu'
 
@@ -5,6 +7,7 @@ require 'systemu'
 # started fixing @nbit001
 describe Impressionist, :migration do
   fixtures :articles, :impressions, :posts, :profiles
+
   it "deletes existing migration and generate the migration file" do
     pending
     migrations_dir = Rails.root.join('db/migrate')
