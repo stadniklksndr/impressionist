@@ -1,11 +1,12 @@
-require 'spec_helper'
+# frozen_string_literal: true
 
-describe Impressionist do
+require "spec_helper"
+
+RSpec.describe "Initializers" do
   let(:imp) { RUBY_VERSION.match("1.8") ? "is_impressionable" : :is_impressionable }
 
   it "is extended from ActiveRecord::Base" do
     expect(ActiveRecord::Base).to respond_to(imp)
-    # ActiveRecord::Base.methods.include?(method).should be_truthy
   end
 
   it "includes methods in ApplicationController" do
