@@ -10,7 +10,7 @@ RSpec.describe Impressionist::Generators::ImpressionistGenerator do
   # moves up from where the current test is located and then navigates into the dummy directory
   let(:dummy_path) { File.expand_path("../../dummy", __dir__) }
 
-  describe "list impressionist generators in app" do
+  describe "list generators in the app" do
     let(:output) do
       Dir.chdir(dummy_path) do
         output = `rails generate | grep impressionist`
@@ -18,11 +18,17 @@ RSpec.describe Impressionist::Generators::ImpressionistGenerator do
       end
     end
 
-    it "checks if all generators are included in the output" do
+    it "checks if all impressionist generators are included in the output" do
       expect(output).to include(
         "impressionist:impressionist", "active_record:impressionist",
         "mongo_mapper:impressionist", "mongoid:impressionist"
       )
+    end
+  end
+
+  describe "hook_for" do
+    it "ORM to be invoked" do
+      expect(described_class).to respond_to(:orm_generator)
     end
   end
 end
