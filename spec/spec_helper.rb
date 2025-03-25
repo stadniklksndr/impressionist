@@ -47,6 +47,11 @@ RSpec.configure do |config|
   # Ensures that each test runs inside a database
   # transaction, which  is rolled back after the test completes.
   config.use_transactional_fixtures = true
+
+  # Configure RSpec to automatically infer types based on file locations.
+  # This tells RSpec to automatically treat files in spec/controllers/ as
+  # controller specs, so render_views will work without manually setting type: :controller.
+  config.infer_spec_type_from_file_location!
   # *** ========================================== ***
 
   # rspec-expectations config goes here. You can use an alternate
