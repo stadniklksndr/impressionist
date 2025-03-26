@@ -1,4 +1,7 @@
-# This controller imports the impressionist module to make the modules methods available for testing
+# frozen_string_literal: true
+
+# This controller imports the impressionist module
+# to make the modules methods available for testing
 class DummyController < ApplicationController
   impressionist
 
