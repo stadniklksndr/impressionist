@@ -15,16 +15,12 @@ Gem::Specification.new do |s|
   s.authors       = ['johnmcaliley']
 
   s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- tests/**/*`.split("\n")
   s.require_path  = 'lib'
 
   # Installed when someone installs gem
-  s.add_dependency "friendly_id"
+  s.add_dependency "friendly_id", ">= 5.5.0"
   s.add_dependency "rails", ">= 7"
 
-  # NOT installed when someone installs gem
-  # Installed only in development, when you run: bundle install
-  s.add_development_dependency "sqlite3", "~> 2.6.0"
-  s.add_development_dependency "capybara", "~> 3.40.0"
-  s.add_development_dependency "rspec-rails", "~> 7.1.1"
+  # ✅ MFA requirement
+  s.metadata = { "rubygems_mfa_required" => "true" }
 end

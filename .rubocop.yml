@@ -35,9 +35,3 @@ Style/BlockComments:
   Enabled: true
   Exclude:
     - "spec/spec_helper.rb"
-
-Gemspec/OrderedDependencies:
-  Enabled: false
-
-Bundler/OrderedGems:
-  Enabled: false

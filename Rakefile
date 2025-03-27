@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Ensures that Bundler is responsible for loading and
 # managing gem dependencies, providing a reliable and
 # consistent environment for running Rake tasks
