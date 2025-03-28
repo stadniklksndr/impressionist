@@ -27,6 +27,16 @@ platforms :jruby do
   gem 'jruby-openssl'
 end
 
+group :development do
+  # Vulnerable versions of gems
+  # bundle exec bundler-audit --update
+  gem "bundler-audit", ">= 0.9.2"
+
+  # Security vulnerability scanner
+  # bundle exec brakeman -q -w2
+  gem "brakeman", ">= 7.0.0"
+end
+
 # Loads dependencies from impressionist.gemspec
 # When you run `bundle install` inside the root of the gem, this command:
 #   * Reads the .gemspec file

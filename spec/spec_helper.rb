@@ -35,9 +35,6 @@ require_relative "dummy/config/environment"
 # and allow to work with Rails’ fixtures or FactoryBot, database transactions.
 require "rspec/rails"
 
-# Loads the FriendlyId gem for test environment
-require "friendly_id"
-
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   # *** Configure rspec-rails settings for testing ***
