@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 require_relative "boot"
 
 require "rails/all"
+
+# Loads the FriendlyId gem for test environment
+require "friendly_id"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
