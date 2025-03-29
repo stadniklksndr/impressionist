@@ -1,23 +1,21 @@
+# frozen_string_literal: true
+
 class PostsController < ApplicationController
   helper_method :current_user
+
   impressionist
-  def index
 
-  end
+  def index; end
 
-  def show
+  def show; end
 
-  end
-
-  def edit
-
-  end
+  def edit; end
 
   def current_user
-    if session[:user_id]
-      user = User.new
-      user.id = session[:user_id]
-      @current_user ||= user
-    end
+    return unless session[:user_id]
+
+    user = User.new
+    user.id = session[:user_id]
+    @current_user ||= user
   end
 end

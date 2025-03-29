@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ArticlesController < ApplicationController
   if Rails::VERSION::MAJOR >= 5
     before_action :test_current_user_var
@@ -6,14 +8,14 @@ class ArticlesController < ApplicationController
   end
 
   def test_current_user_var
-    if session[:user_id]
-      @current_user = User.new
-      @current_user.id = session[:user_id]
-    end
+    return unless session[:user_id]
+
+    @current_user = User.new
+    @current_user.id = session[:user_id]
   end
 
   def index
-    impressionist(Article.first,"this is a test article impression")
+    impressionist(Article.first, "this is a test article impression")
   end
 
   def show
