@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Impressionist
   module Bots
 
@@ -8,6 +10,7 @@ module Impressionist
 
     WILD_CARDS = ["bot","yahoo","slurp","google","msn","crawler"]
 
+    # rubocop:disable Layout/LineLength, Metrics/CollectionLiteralLength
     LIST = ["<a href='http://www.unchaos.com/'> UnChaos </a> From Chaos To Order Hybrid Web Search Engine.(vadim_gonchar@unchaos.com)",
       "<a href='http://www.unchaos.com/'> UnChaos Bot Hybrid Web Search Engine. </a> (vadim_gonchar@unchaos.com)",
       "<b> UnChaosBot From Chaos To Order UnChaos Hybrid Web Search Engine at www.unchaos.com </b> (info@unchaos.com)",
@@ -1464,5 +1467,6 @@ module Impressionist
       "ZoomSpider - wrensoft.com",
       "zspider/0.9-dev http://feedback.redkolibri.com/",
       "ZyBorg/1.0 (ZyBorg@WISEnut.com; http://www.WISEnut.com)"]
+    # rubocop:enable Layout/LineLength, Metrics/CollectionLiteralLength
   end
 end
