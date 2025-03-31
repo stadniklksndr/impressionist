@@ -1,5 +1,6 @@
-require 'digest/sha2'
+# frozen_string_literal: true
 
+require 'digest/sha2'
 
 module ImpressionistController
   module ClassMethods
@@ -25,7 +26,7 @@ module ImpressionistController
       if should_count_impression?(opts)
         if obj.respond_to?("impressionable?")
           if unique_instance?(obj, opts[:unique])
-            obj.impressions.create(associative_create_statement({:message => message}))
+            obj.impressions.create(associative_create_statement({message: message}))
           end
         else
           # we could create an impression anyway. for classes, too. why not?
@@ -41,7 +42,7 @@ module ImpressionistController
     def impressionist_subapp_filter(opts = {})
       if should_count_impression?(opts)
         actions = opts[:actions]
-        actions.collect!{|a|a.to_s} unless actions.blank?
+        actions.collect!(&:to_s) unless actions.blank?
         if (actions.blank? || actions.include?(action_name)) && unique?(opts[:unique])
           Impression.create(direct_create_statement)
         end
@@ -61,15 +62,15 @@ module ImpressionistController
       end
 
       query_params.reverse_merge!(
-        :controller_name => controller_name,
-        :action_name => action_name,
-        :user_id => user_id,
-        :request_hash => @impressionist_hash,
-        :session_hash => session_hash,
-        :ip_address => request.remote_ip,
-        :referrer => request.referer,
-        :params => filter.filter(params_hash)
-        )
+        controller_name: controller_name,
+        action_name: action_name,
+        user_id: user_id,
+        request_hash: @impressionist_hash,
+        session_hash: session_hash,
+        ip_address: request.remote_ip,
+        referrer: request.referer,
+        params: filter.filter(params_hash)
+      )
     end
 
     private
@@ -109,7 +110,12 @@ module ImpressionistController
 
     def check_unique_impression?(impressions, unique_opts)
       impressions_present = impressions.exists?
-      impressions_present && unique_opts_has_params?(unique_opts) ? check_unique_with_params?(impressions) : !impressions_present
+
+      if impressions_present && unique_opts_has_params?(unique_opts)
+        check_unique_with_params?(impressions)
+      else
+        !impressions_present
+      end
     end
 
     def unique_opts_has_params?(unique_opts)
@@ -134,9 +140,10 @@ module ImpressionistController
     # creates a statment hash that contains default values for creating an impression.
     def direct_create_statement(query_params={},impressionable=nil)
       query_params.reverse_merge!(
-        :impressionable_type => controller_name.singularize.camelize,
-        :impressionable_id => impressionable.present? ? impressionable.id : params[:id]
-        )
+        impressionable_type: controller_name.singularize.camelize,
+        impressionable_id: impressionable.present? ? impressionable.id : params[:id]
+      )
+
       associative_create_statement(query_params)
     end
 
