@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'timeout'
 require 'net/http'
 require 'nokogiri'
@@ -10,10 +12,16 @@ module Impressionist
         response = Net::HTTP.get(URI.parse(LIST_URL))
         doc = Nokogiri::XML(response)
         list = []
+
         doc.xpath('//user-agent').each do |agent|
           type = agent.xpath("Type").text
-          list << agent.xpath("String").text.gsub("&lt;","<") if ["R","S"].include?(type) #gsub hack for badly formatted data
+
+          if ["R","S"].include?(type)
+            # gsub hack for badly formatted data
+            list << agent.xpath("String").text.gsub("&lt;","<")
+          end
         end
+
         list
       end
     end
