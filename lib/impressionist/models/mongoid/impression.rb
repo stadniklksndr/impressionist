@@ -1,4 +1,5 @@
-##
+# frozen_string_literal: true
+
 # see active_record/impression.rb
 # same doc applies to here
 class Impression
@@ -22,5 +23,4 @@ class Impression
   field :params
 
   after_save :impressionable_counter_cache_updatable?
-
 end

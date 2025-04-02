@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'impressionist/setup_association'
 
 require 'impressionist/counter_cache'
