@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Impressionist
   # Responsibility
   # Toggles between rails > 3.1 < 4
@@ -20,7 +22,5 @@ module Impressionist
       def supported_by_rails?
         ::Rails::VERSION::MAJOR.to_i < 4
       end
-
   end
-
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Impressionist
   class Engine < ::Rails::Engine
     attr_accessor :orm
