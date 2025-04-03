@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 # Note
 # If impressionist_counter_cache_options[:counter_cache] is false(default)
 # it won't even run this class
 module Impressionist
-
   class UpdateCounters
     attr_reader :receiver, :klass
 
@@ -34,7 +35,7 @@ module Impressionist
     end
 
     def filter
-      {:filter => unique_filter}
+      { filter: unique_filter }
     end
 
     # :filter gets assigned to :ip_address as default
@@ -64,14 +65,11 @@ module Impressionist
     end
 
     def cache_options
-      klass.
-      impressionist_counter_cache_options
+      klass.impressionist_counter_cache_options
     end
 
     def id
       receiver.id
     end
-
   end
-
 end
