@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Impressionist
   module Impressionable
 
@@ -8,7 +10,7 @@ module Impressionist
     def impressionist_count(options={})
 
       # Uses these options as defaults unless overridden in options hash
-      options.reverse_merge!(:filter => :request_hash, :start_date => nil, :end_date => Time.now)
+      options.reverse_merge!(filter: :request_hash, start_date: nil, end_date: Time.now)
 
       # If a start_date is provided, finds impressions between then and the end_date.
       # Otherwise returns all impressions
@@ -24,5 +26,4 @@ module Impressionist
   end
 end
 
-Mongoid::Document.
-send(:include, Impressionist::Impressionable)
+Mongoid::Document.send(:include, Impressionist::Impressionable)
