@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Impressionist
   module CounterCache
 
@@ -55,7 +57,6 @@ module Impressionist
         end
       end
 
-
       # Returns false, as it is only handling one exeception
       # It would make updatable to fail thereafter it would not try
       # to update cache_counter
@@ -71,6 +72,5 @@ module Impressionist
       def exeception_to_log
         impressionist_log("Couldn't find Widget with id=#{self.impressionable_id}")
       end
-
   end
 end

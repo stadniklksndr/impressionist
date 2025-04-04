@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Impressionist
   module IsImpressionable
     extend ActiveSupport::Concern
@@ -13,11 +15,8 @@ module Impressionist
       private
 
       def define_association
-        has_many(:impressions,
-        :as => :impressionable,
-        :dependent => :delete_all)
+        has_many(:impressions, as: :impressionable, dependent: :delete_all)
       end
     end
-
   end
 end
