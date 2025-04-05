@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Impression
   include MongoMapper::Document
 
@@ -14,5 +16,5 @@ class Impression
   key :referrer, String
   timestamps!
 
-  belongs_to :impressionable, :polymorphic=>true
+  belongs_to :impressionable, polymorphic: true
 end

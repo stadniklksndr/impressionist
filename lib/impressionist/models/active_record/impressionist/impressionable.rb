@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Impressionist
 
   module Impressionable
@@ -8,5 +10,4 @@ module Impressionist
 
 end
 
-ActiveRecord::Base.
-send(:include, Impressionist::Impressionable)
+ActiveRecord::Base.send(:include, Impressionist::Impressionable)

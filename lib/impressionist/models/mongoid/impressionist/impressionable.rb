@@ -22,7 +22,6 @@ module Impressionist
       distinct = options[:filter] != :all
       distinct ? imps.where(options[:filter].ne => nil).distinct(options[:filter]).count : imps.count
     end
-
   end
 end
 
