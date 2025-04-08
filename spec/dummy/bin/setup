@@ -6,11 +6,9 @@ require "fileutils"
 
 APP_ROOT = File.expand_path("..", __dir__)
 
-# rubocop:disable Style/ArgumentsForwarding
-def system!(*args)
-  system(*args, exception: true)
+def system!(...)
+  system(...)
 end
-# rubocop:enable Style/ArgumentsForwarding
 
 FileUtils.chdir APP_ROOT do
   # This script is a way to set up or update your development environment automatically.
