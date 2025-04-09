@@ -33,3 +33,5 @@ Style/BlockComments:
   Enabled: true
   Exclude:
     - "spec/spec_helper.rb"
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
