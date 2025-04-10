@@ -22,7 +22,7 @@ begin
   RuboCop::RakeTask.new
 rescue LoadError
   desc "Run Rubocop"
-  task :rubocop do
+  task rubocop: :environment do
     puts "==================================="
     warn " *** Rubocop task is disabled ! ***"
     puts "==================================="
@@ -32,14 +32,14 @@ end
 # Sets the default tasks.
 # When you run `rake` from the command line without specifying
 # a task, it will automatically run the :rubocop and :spec task.
-task default: [:rubocop, :spec]
+task default: %i[rubocop spec]
 
 # Sets up a Rake tasks within the impressionist namespace
 namespace :impressionist do
   require "#{File.dirname(__FILE__)}/lib/impressionist/bots"
 
   desc "Output the list of bots from http://www.user-agents.org/"
-  task :bots do
+  task bots: :environment do
     Impressionist::Bots.consume.each { |bot| puts bot }
   end
 end

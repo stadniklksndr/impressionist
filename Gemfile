@@ -18,13 +18,13 @@ end
 group :test do
   gem "capybara", "~> 3.40.0"
   gem "rspec-rails", "~> 7.1.1"
-  gem 'simplecov'
+  gem "simplecov"
 end
 
 platforms :jruby do
-  gem 'activerecord-jdbcsqlite3-adapter'
-  gem 'jdbc-sqlite3'
-  gem 'jruby-openssl'
+  gem "activerecord-jdbcsqlite3-adapter"
+  gem "jdbc-sqlite3"
+  gem "jruby-openssl"
 end
 
 group :development do
