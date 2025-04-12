@@ -1,3 +1,5 @@
+# https://docs.rubocop.org/rubocop/
+
 AllCops:
   NewCops: enable
   SuggestExtensions: true
@@ -7,31 +9,9 @@ plugins:
   - rubocop-rails
   - rubocop-rspec
   - rubocop-capybara
+  - rubocop-packaging
   - rubocop-rspec_rails
+  - rubocop-performance
 
-Layout/SpaceAroundMethodCallOperator:
-  Enabled: true
-
-Lint/RaiseException:
-  Enabled: true
-Lint/StructNewOverride:
-  Enabled: true
-
-Style/ExponentialNotation:
-  Enabled: true
-Style/HashEachMethods:
-  Enabled: true
-Style/HashTransformKeys:
-  Enabled: true
-Style/HashTransformValues:
-  Enabled: true
-Style/SymbolProc:
-  Enabled: true
-  Exclude:
-    - "spec/spec_helper.rb"
-Style/BlockComments:
-  Enabled: true
-  Exclude:
-    - "spec/spec_helper.rb"
 Style/StringLiterals:
   EnforcedStyle: double_quotes
