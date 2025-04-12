@@ -1,6 +1,6 @@
 ![Impressionist Logo](https://github.com/charlotte-ruby/impressionist/raw/master/logo.png)
 
-[![Master](https://github.com/charlotte-ruby/impressionist/actions/workflows/main.yml/badge.svg)](https://github.com/stadniklksndr/impressionist/actions/workflows/ci.yml)
+[![Master](https://github.com/stadniklksndr/impressionist/actions/workflows/ci.yml/badge.svg)](https://github.com/stadniklksndr/impressionist/actions/workflows/ci.yml)
 
 impressionist
 =============
