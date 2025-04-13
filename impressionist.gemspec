@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "impressionist/version"
+require_relative "lib/impressionist/version"
 
 Gem::Specification.new do |s|
   s.platform      = Gem::Platform::RUBY
