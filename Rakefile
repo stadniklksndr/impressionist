@@ -36,10 +36,12 @@ task default: %i[rubocop spec]
 
 # Sets up a Rake tasks within the impressionist namespace
 namespace :impressionist do
-  require "#{File.dirname(__FILE__)}/lib/impressionist/bots"
+  require "impressionist/bots"
 
+  # rubocop:disable Rails/RakeEnvironment
   desc "Output the list of bots from http://www.user-agents.org/"
-  task bots: :environment do
+  task :bots do
     Impressionist::Bots.consume.each { |bot| puts bot }
   end
+  # rubocop:enable Rails/RakeEnvironment
 end
