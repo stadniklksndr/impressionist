@@ -1,17 +1,19 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ModuleLength, Layout/LineLength, Metrics/CollectionLiteralLength
 module Impressionist
+  # nodoc
   module Bots
-
     def self.bot?(user_agent = nil)
       return false if user_agent.nil?
+
       WILD_CARDS.any? { |wc| user_agent.downcase.include?(wc) } || LIST.include?(user_agent)
     end
 
-    WILD_CARDS = ["bot","yahoo","slurp","google","msn","crawler"]
+    WILD_CARDS = %w[bot yahoo slurp google msn crawler].freeze
 
-    # rubocop:disable Layout/LineLength, Metrics/CollectionLiteralLength
-    LIST = ["<a href='http://www.unchaos.com/'> UnChaos </a> From Chaos To Order Hybrid Web Search Engine.(vadim_gonchar@unchaos.com)",
+    LIST = [
+      "<a href='http://www.unchaos.com/'> UnChaos </a> From Chaos To Order Hybrid Web Search Engine.(vadim_gonchar@unchaos.com)",
       "<a href='http://www.unchaos.com/'> UnChaos Bot Hybrid Web Search Engine. </a> (vadim_gonchar@unchaos.com)",
       "<b> UnChaosBot From Chaos To Order UnChaos Hybrid Web Search Engine at www.unchaos.com </b> (info@unchaos.com)",
       "<http://www.sygol.com/> http://www.sygol.com",
@@ -1466,7 +1468,8 @@ module Impressionist
       "Zippy v2.0 - Zippyfinder.com",
       "ZoomSpider - wrensoft.com",
       "zspider/0.9-dev http://feedback.redkolibri.com/",
-      "ZyBorg/1.0 (ZyBorg@WISEnut.com; http://www.WISEnut.com)"]
-    # rubocop:enable Layout/LineLength, Metrics/CollectionLiteralLength
+      "ZyBorg/1.0 (ZyBorg@WISEnut.com; http://www.WISEnut.com)"
+    ].freeze
   end
 end
+# rubocop:enable Metrics/ModuleLength, Layout/LineLength, Metrics/CollectionLiteralLength
