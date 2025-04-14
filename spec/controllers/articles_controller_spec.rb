@@ -7,9 +7,9 @@ RSpec.describe ArticlesController do
 
   render_views
 
-  it 'makes the impressionable_hash available' do
+  it "makes the impressionable_hash available" do
     get :index
-    expect(response.body).to include('false')
+    expect(response.body).to include("false")
   end
 
   describe "logs an impression with a message" do
@@ -58,14 +58,14 @@ RSpec.describe ArticlesController do
     end
   end
 
-  it 'logs the user_id if user is authenticated (@current_user before_action method)' do
+  it "logs the user_id if user is authenticated (@current_user before_action method)" do
     session[:user_id] = 123
     get :show, params: { id: 1 }
 
     expect(Article.first.impressions.last.user_id).to eq(123)
   end
 
-  it 'does not log the user_id if user is authenticated' do
+  it "does not log the user_id if user is authenticated" do
     get :show, params: { id: 1 }
 
     expect(Article.first.impressions.last.user_id).to be_nil
@@ -74,12 +74,12 @@ RSpec.describe ArticlesController do
   describe "logs the request_hash, ip_address, referrer and session_hash" do
     before { get :show, params: { id: 1 } }
 
-    it 'logs the request_hash' do
+    it "logs the request_hash" do
       expect(Impression.last.request_hash.size).to eq(64)
     end
 
     it "logs the ip_address" do
-      expect(Impression.last.ip_address).to eq('0.0.0.0')
+      expect(Impression.last.ip_address).to eq("0.0.0.0")
     end
 
     it "logs the session_hash" do
@@ -91,10 +91,10 @@ RSpec.describe ArticlesController do
     end
   end
 
-  it 'logs the referrer when you click a link', type: :system do
+  it "logs the referrer when you click a link", type: :system do
     visit article_url(Article.first, host: "test.host")
-    click_link 'Same Page'
-    expect(Impression.last.referrer).to eq 'http://test.host/articles/1'
+    click_link "Same Page"
+    expect(Impression.last.referrer).to eq "http://test.host/articles/1"
   end
 
   describe "logs request with params (checked = true)" do
@@ -145,7 +145,7 @@ RSpec.describe ArticlesController do
     end
   end
 
-  describe 'when filtering params' do
+  describe "when filtering params" do
     let!(:filter_parameters) { Rails.application.config.filter_parameters }
 
     before do
@@ -156,9 +156,9 @@ RSpec.describe ArticlesController do
       Rails.application.config.filter_parameters = filter_parameters
     end
 
-    it 'values should not be recorded' do
-      get 'index', params: { password: 'best-password-ever' }
-      expect(Impression.last.params).to eq('password' => '[FILTERED]')
+    it "values should not be recorded" do
+      get "index", params: { password: "best-password-ever" }
+      expect(Impression.last.params).to eq("password" => "[FILTERED]")
     end
   end
 end

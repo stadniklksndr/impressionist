@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe WidgetsController do
   # rubocop:disable RSpec/ExampleLength
@@ -19,14 +19,14 @@ describe WidgetsController do
   # rubocop:enable RSpec/ExampleLength
 
   it "does not log impression when user-agent is in wildcard list" do
-    request.env['HTTP_USER_AGENT'] = 'somebot'
+    request.env["HTTP_USER_AGENT"] = "somebot"
 
     get :show, params: { id: 1 }
     expect(Impression.all.size).to eq 11
   end
 
   it "does not log impression when user-agent is in the bot list" do
-    request.env['HTTP_USER_AGENT'] = 'Acoon Robot v1.50.001'
+    request.env["HTTP_USER_AGENT"] = "Acoon Robot v1.50.001"
 
     get :show, params: { id: 1 }
     expect(Impression.all.size).to eq 11

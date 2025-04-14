@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 # we use the posts controller as it uses the impressionsist module. any such controller would do.
 describe DummyController do
   let!(:impression_count) { Impression.all.size }
 
-  it 'logs impression at the per action level on non-restful controller' do
-    get 'index'
+  it "logs impression at the per action level on non-restful controller" do
+    get "index"
     expect(Impression.all.size).to eq 12
   end
 
@@ -93,20 +93,20 @@ describe DummyController do
       aggregate_failures do
         # increments impression count by 1 when controller_name is 'post' and action_name is 'test_action'
         allow(controller).to receive_messages(controller_name: "post", action_name: "test_action")
-        controller.impressionist_subapp_filter(unique: [:controller_name, :action_name])
-        controller.impressionist_subapp_filter(unique: [:controller_name, :action_name])
+        controller.impressionist_subapp_filter(unique: %i[controller_name action_name])
+        controller.impressionist_subapp_filter(unique: %i[controller_name action_name])
         expect(Impression.count).to equal(impression_count + 1)
 
         # increments impression count by 2 when action_name changes to 'another_action'
         allow(controller).to receive(:action_name).and_return("another_action")
-        controller.impressionist_subapp_filter(unique: [:controller_name, :action_name])
-        controller.impressionist_subapp_filter(unique: [:controller_name, :action_name])
+        controller.impressionist_subapp_filter(unique: %i[controller_name action_name])
+        controller.impressionist_subapp_filter(unique: %i[controller_name action_name])
         expect(Impression.count).to equal(impression_count + 2)
 
         # increments impression count by 3 when controller_name changes to 'article'
         allow(controller).to receive(:controller_name).and_return("article")
-        controller.impressionist_subapp_filter(unique: [:controller_name, :action_name])
-        controller.impressionist_subapp_filter(unique: [:controller_name, :action_name])
+        controller.impressionist_subapp_filter(unique: %i[controller_name action_name])
+        controller.impressionist_subapp_filter(unique: %i[controller_name action_name])
         expect(Impression.count).to equal(impression_count + 3)
       end
     end
@@ -183,12 +183,12 @@ describe DummyController do
 
     it "recognize different id" do
       allow(controller).to receive(:params).and_return({ id: "666" }) # for correct impressionable id in filter
-      controller.impressionist_subapp_filter(unique: [:impressionable_type, :impressionable_id])
-      controller.impressionist_subapp_filter(unique: [:impressionable_type, :impressionable_id])
+      controller.impressionist_subapp_filter(unique: %i[impressionable_type impressionable_id])
+      controller.impressionist_subapp_filter(unique: %i[impressionable_type impressionable_id])
 
       allow(controller).to receive(:params).and_return({ id: "42" }) # for correct impressionable id in filter
-      controller.impressionist_subapp_filter(unique: [:impressionable_type, :impressionable_id])
-      controller.impressionist_subapp_filter(unique: [:impressionable_type, :impressionable_id])
+      controller.impressionist_subapp_filter(unique: %i[impressionable_type impressionable_id])
+      controller.impressionist_subapp_filter(unique: %i[impressionable_type impressionable_id])
 
       expect(Impression.count).to equal(impression_count + 2)
     end
@@ -196,11 +196,11 @@ describe DummyController do
     it "recognize combined uniqueness" do
       allow(controller).to receive(:action_name).and_return("test_action")
 
-      controller.impressionist_subapp_filter(unique: [:ip_address, :request_hash, :action_name])
-      controller.impressionist_subapp_filter(unique: [:request_hash, :ip_address, :action_name])
-      controller.impressionist_subapp_filter(unique: [:request_hash, :action_name])
-      controller.impressionist_subapp_filter(unique: [:ip_address, :action_name])
-      controller.impressionist_subapp_filter(unique: [:ip_address, :request_hash])
+      controller.impressionist_subapp_filter(unique: %i[ip_address request_hash action_name])
+      controller.impressionist_subapp_filter(unique: %i[request_hash ip_address action_name])
+      controller.impressionist_subapp_filter(unique: %i[request_hash action_name])
+      controller.impressionist_subapp_filter(unique: %i[ip_address action_name])
+      controller.impressionist_subapp_filter(unique: %i[ip_address request_hash])
       controller.impressionist_subapp_filter(unique: [:action_name])
       controller.impressionist_subapp_filter(unique: [:ip_address])
       controller.impressionist_subapp_filter(unique: [:request_hash])
@@ -210,13 +210,13 @@ describe DummyController do
 
     it "recognize combined non-uniqueness" do
       allow(controller).to receive(:action_name).and_return(nil)
-      controller.impressionist_subapp_filter(unique: [:ip_address, :action_name])
+      controller.impressionist_subapp_filter(unique: %i[ip_address action_name])
 
       allow(controller).to receive(:action_name).and_return("test_action")
-      controller.impressionist_subapp_filter(unique: [:ip_address, :action_name])
+      controller.impressionist_subapp_filter(unique: %i[ip_address action_name])
 
       allow(controller).to receive(:action_name).and_return("another_action")
-      controller.impressionist_subapp_filter(unique: [:ip_address, :action_name])
+      controller.impressionist_subapp_filter(unique: %i[ip_address action_name])
 
       expect(Impression.count).to equal(impression_count + 3)
     end
@@ -333,11 +333,11 @@ describe DummyController do
       impressionable = Post.create
       allow(controller).to receive(:session_hash).and_return("foo")
 
-      controller.impressionist(impressionable, nil, unique: [:ip_address, :request_hash, :session_hash])
-      controller.impressionist(impressionable, nil, unique: [:request_hash, :ip_address, :session_hash])
-      controller.impressionist(impressionable, nil, unique: [:request_hash, :session_hash])
-      controller.impressionist(impressionable, nil, unique: [:ip_address, :session_hash])
-      controller.impressionist(impressionable, nil, unique: [:ip_address, :request_hash])
+      controller.impressionist(impressionable, nil, unique: %i[ip_address request_hash session_hash])
+      controller.impressionist(impressionable, nil, unique: %i[request_hash ip_address session_hash])
+      controller.impressionist(impressionable, nil, unique: %i[request_hash session_hash])
+      controller.impressionist(impressionable, nil, unique: %i[ip_address session_hash])
+      controller.impressionist(impressionable, nil, unique: %i[ip_address request_hash])
       controller.impressionist(impressionable, nil, unique: [:session_hash])
       controller.impressionist(impressionable, nil, unique: [:ip_address])
       controller.impressionist(impressionable, nil, unique: [:request_hash])
@@ -348,11 +348,11 @@ describe DummyController do
     it "recognize combined non-uniqueness" do
       impressionable = Post.create
       allow(controller).to receive(:session_hash).and_return(nil)
-      controller.impressionist(impressionable, nil, unique: [:ip_address, :session_hash])
+      controller.impressionist(impressionable, nil, unique: %i[ip_address session_hash])
       allow(controller).to receive(:session_hash).and_return("foo")
-      controller.impressionist(impressionable, nil, unique: [:ip_address, :session_hash])
+      controller.impressionist(impressionable, nil, unique: %i[ip_address session_hash])
       allow(controller).to receive(:session_hash).and_return("bar")
-      controller.impressionist(impressionable, nil, unique: [:ip_address, :session_hash])
+      controller.impressionist(impressionable, nil, unique: %i[ip_address session_hash])
       expect(Impression.count).to equal(impression_count + 3)
     end
     # rubocop:enable RSpec/ExampleLength
@@ -373,43 +373,43 @@ describe DummyController do
 
     it "recognize uniqueness" do
       # order of the following methods is important for the test!
-      controller.impressionist_subapp_filter(unique: [:ip_address, :request_hash, :session_hash])
-      controller.impressionist(impressionable, nil, unique: [:ip_address, :request_hash, :session_hash])
+      controller.impressionist_subapp_filter(unique: %i[ip_address request_hash session_hash])
+      controller.impressionist(impressionable, nil, unique: %i[ip_address request_hash session_hash])
 
       expect(Impression.count).to equal(impression_count + 1)
     end
   end
 
-  describe 'impressionist with friendly id' do
-    let(:impressionable) { Profile.create({ username: 'test_profile', slug: 'test_profile' }) }
+  describe "impressionist with friendly id" do
+    let(:impressionable) { Profile.create({ username: "test_profile", slug: "test_profile" }) }
 
     before do
       allow(controller).to receive_messages(
-        action_name: 'show',
+        action_name: "show",
         controller_name: "profile",
         params: { id: impressionable.slug }
       )
 
-      allow(controller.request).to receive(:remote_ip).and_return('1.2.3.4')
+      allow(controller.request).to receive(:remote_ip).and_return("1.2.3.4")
     end
 
-    it 'unique' do
-      controller.impressionist(impressionable, nil, unique: [:impressionable_type, :impressionable_id])
-      controller.impressionist(impressionable, nil, unique: [:impressionable_type, :impressionable_id])
+    it "unique" do
+      controller.impressionist(impressionable, nil, unique: %i[impressionable_type impressionable_id])
+      controller.impressionist(impressionable, nil, unique: %i[impressionable_type impressionable_id])
 
       expect(Impression.count).to equal(impression_count + 1)
     end
   end
 
-  shared_examples_for 'an impressionable action' do
-    it 'record an impression' do
+  shared_examples_for "an impressionable action" do
+    it "record an impression" do
       controller.impressionist_subapp_filter(condition)
       expect(Impression.count).to equal(impression_count + 1)
     end
   end
 
-  shared_examples_for 'an unimpressionable action' do
-    it 'record an impression' do
+  shared_examples_for "an unimpressionable action" do
+    it "record an impression" do
       controller.impressionist_subapp_filter(condition)
       expect(Impression.count).to equal(impression_count)
     end
@@ -421,11 +421,11 @@ describe DummyController do
         allow(controller).to receive(:send).with(:true_condition).and_return(true)
       end
 
-      it_behaves_like 'an impressionable action' do
+      it_behaves_like "an impressionable action" do
         let(:condition) { { if: :true_condition } }
       end
 
-      it_behaves_like 'an impressionable action' do
+      it_behaves_like "an impressionable action" do
         let(:condition) { { if: -> { true } } }
       end
     end
@@ -435,11 +435,11 @@ describe DummyController do
         allow(controller).to receive(:send).with(:false_condition).and_return(false)
       end
 
-      it_behaves_like 'an unimpressionable action' do
+      it_behaves_like "an unimpressionable action" do
         let(:condition) { { if: :false_condition } }
       end
 
-      it_behaves_like 'an unimpressionable action' do
+      it_behaves_like "an unimpressionable action" do
         let(:condition) { { if: -> { false } } }
       end
     end
@@ -451,11 +451,11 @@ describe DummyController do
         allow(controller).to receive(:send).with(:true_condition).and_return(true)
       end
 
-      it_behaves_like 'an unimpressionable action' do
+      it_behaves_like "an unimpressionable action" do
         let(:condition) { { unless: :true_condition } }
       end
 
-      it_behaves_like 'an unimpressionable action' do
+      it_behaves_like "an unimpressionable action" do
         let(:condition) { { unless: -> { true } } }
       end
     end
@@ -465,11 +465,11 @@ describe DummyController do
         allow(controller).to receive(:send).with(:false_condition).and_return(false)
       end
 
-      it_behaves_like 'an impressionable action' do
+      it_behaves_like "an impressionable action" do
         let(:condition) { { unless: :false_condition } }
       end
 
-      it_behaves_like 'an impressionable action' do
+      it_behaves_like "an impressionable action" do
         let(:condition) { { unless: -> { false } } }
       end
     end

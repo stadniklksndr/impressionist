@@ -16,11 +16,6 @@
 # to surface the full backtrace of the call site.
 RSpec.configure(&:raise_errors_for_deprecations!)
 
-# This loads Bundler and sets up the environment to use the gems specified in your Gemfile.
-# It ensures that only the gems listed in your Gemfile (and their dependencies) are available for use.
-# Making `bundle exec rspec` unnecessary so you can run RSpec without bundle exec.
-require "bundler/setup"
-
 # Ensure that the gem's dummy app runs in
 # the test environment when running specs.
 ENV["RAILS_ENV"] ||= "test"

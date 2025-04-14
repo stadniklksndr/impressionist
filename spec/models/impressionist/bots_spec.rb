@@ -29,7 +29,7 @@ RSpec.describe Impressionist::Bots do
     end
 
     it "skips safe matches" do
-      expect(described_class).not_to be_bot('127.0.0.1')
+      expect(described_class).not_to be_bot("127.0.0.1")
     end
   end
 end
