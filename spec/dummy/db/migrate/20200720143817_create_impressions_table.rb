@@ -10,6 +10,7 @@ class CreateImpressionsTable < ActiveRecord::Migration[6.0]
     drop_table :impressions
   end
 
+  # rubocop:disable Metrics/MethodLength
   def self.create_impressions_table
     create_table :impressions, force: true do |t|
       t.string :impressionable_type
@@ -27,6 +28,7 @@ class CreateImpressionsTable < ActiveRecord::Migration[6.0]
       t.timestamps
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def self.add_indexes
     add_impressionable_indexes
@@ -35,29 +37,29 @@ class CreateImpressionsTable < ActiveRecord::Migration[6.0]
   end
 
   def self.add_impressionable_indexes
-    add_index :impressions, [:impressionable_type, :message, :impressionable_id],
+    add_index :impressions, %i[impressionable_type message impressionable_id],
               name: "impressionable_type_message_index", unique: false, length: { message: 255 }
 
-    add_index :impressions, [:impressionable_type, :impressionable_id, :request_hash],
+    add_index :impressions, %i[impressionable_type impressionable_id request_hash],
               name: "poly_request_index", unique: false
 
-    add_index :impressions, [:impressionable_type, :impressionable_id, :ip_address],
+    add_index :impressions, %i[impressionable_type impressionable_id ip_address],
               name: "poly_ip_index", unique: false
-    add_index :impressions, [:impressionable_type, :impressionable_id, :session_hash],
+    add_index :impressions, %i[impressionable_type impressionable_id session_hash],
               name: "poly_session_index", unique: false
 
-    add_index :impressions, [:impressionable_type, :impressionable_id, :params],
+    add_index :impressions, %i[impressionable_type impressionable_id params],
               name: "poly_params_request_index", unique: false, length: { params: 255 }
   end
 
   def self.add_controller_action_indexes
-    add_index :impressions, [:controller_name, :action_name, :request_hash],
+    add_index :impressions, %i[controller_name action_name request_hash],
               name: "controlleraction_request_index", unique: false
 
-    add_index :impressions, [:controller_name, :action_name, :ip_address],
+    add_index :impressions, %i[controller_name action_name ip_address],
               name: "controlleraction_ip_index", unique: false
 
-    add_index :impressions, [:controller_name, :action_name, :session_hash],
+    add_index :impressions, %i[controller_name action_name session_hash],
               name: "controlleraction_session_index", unique: false
   end
 end
