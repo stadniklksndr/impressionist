@@ -15,3 +15,7 @@ plugins:
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
+Style/WordArray:
+  Enabled: true
+  Exclude:
+    - spec/dummy/db/schema.rb
