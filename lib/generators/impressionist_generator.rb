@@ -2,18 +2,15 @@
 
 module Impressionist
   module Generators
+    # Generator for setting up Impressionist configuration file.
+    # Copies the initializer template to the Rails app.
     class ImpressionistGenerator < Rails::Generators::Base
-      # create command `_invoke_from_option_orm` in thor `invoke_from_option`
-      # where rails `prepare_for_invocation` find ActiveRecord::Generators::ImpressionistGenerator and call it
-      # using `find_by_namespace` and default value orm: :active_record
-      # that was added in ActiveRecord::Railtie and configure! in Rails::Generators
-      # Rails::Railtie configuration can access a config object which contains configuration shared by all railties
       hook_for :orm, required: true, desc: "ORM to be invoked"
 
-      source_root File.expand_path('../templates', __FILE__)
+      source_root File.expand_path("templates", __dir__)
 
       def copy_config_file
-        template 'impression.rb.erb', 'config/initializers/impression.rb'
+        template "impression.rb.erb", "config/initializers/impression.rb"
       end
     end
   end
