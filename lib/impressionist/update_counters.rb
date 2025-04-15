@@ -4,6 +4,7 @@
 # If impressionist_counter_cache_options[:counter_cache] is false(default)
 # it won't even run this class
 module Impressionist
+  # nodoc
   class UpdateCounters
     attr_reader :receiver, :klass
 
@@ -12,10 +13,11 @@ module Impressionist
       @klass = receiver.class
     end
 
+    # rubocop:disable Rails/SkipsModelValidations
     def update
-      klass.
-      update_counters(id, column_name => result)
+      klass.update_counters(id, column_name => result)
     end
+    # rubocop:enable Rails/SkipsModelValidations
 
     private
 

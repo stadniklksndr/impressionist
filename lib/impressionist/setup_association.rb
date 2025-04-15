@@ -27,27 +27,25 @@ module Impressionist
     end
 
     private
-      attr_reader :receiver, :toggle
 
-      def make_accessible
-       receiver.
-        attr_accessible(:impressionable_type,
-                        :impressionable_id,
-                        :controller_name,
-                        :request_hash,
-                        :session_hash,
-                        :action_name,
-                        :ip_address,
-                        :view_name,
-                        :referrer,
-                        :message,
-                        :user_id,
-                        :params)
-      end
+    attr_reader :receiver, :toggle
 
-      def toggle
-        t = RailsToggle.new
-        t.should_include?
-      end
+    def make_accessible
+      receiver.attr_accessible(
+        :impressionable_type, :impressionable_id,
+        :controller_name, :request_hash,
+        :session_hash, :action_name,
+        :ip_address, :view_name,
+        :referrer, :message,
+        :user_id, :params
+      )
+    end
+
+    # rubocop:disable Lint/DuplicateMethods
+    def toggle
+      t = RailsToggle.new
+      t.should_include?
+    end
+    # rubocop:enable Lint/DuplicateMethods
   end
 end
