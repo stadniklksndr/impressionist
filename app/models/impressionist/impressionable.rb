@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 module Impressionist
+  # nodoc
   module Impressionable
     extend ActiveSupport::Concern
 
+    # nodoc
     module ClassMethods
       attr_accessor :impressionist_cache_options
 
@@ -32,7 +34,7 @@ module Impressionist
       end
     end
 
-    def impressionist_count(options={})
+    def impressionist_count(options = {})
       # Uses these options as defaults unless overridden in options hash
       options.reverse_merge!(filter: :request_hash, start_date: nil, end_date: nil)
 
@@ -70,9 +72,7 @@ module Impressionist
           impressions.where(created_at: start_date..end_date)
         end
 
-      if options[:message]
-        imps = imps.where(impressions: { message: options[:message] })
-      end
+      imps = imps.where(impressions: { message: options[:message] }) if options[:message]
 
       imps
     end
